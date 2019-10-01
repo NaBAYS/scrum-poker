@@ -37,15 +37,6 @@
                 autocomplete="new-password"
                 required />
 
-                <!-- Team -->
-              <v-text-field
-                label="Team Token"
-                v-model="team"
-                prepend-icon="group"
-                type="text"
-                persistent-hint
-                hint="Optional"
-                autocomplete="one-time-code" />
             </v-card-text>
             <v-card-actions class="px-10 pb-5">
               <v-btn color="primary"
@@ -73,7 +64,6 @@ export default {
     name: null,
     email: null,
     password: null,
-    team: null,
     loading: false
   }),
   methods: {

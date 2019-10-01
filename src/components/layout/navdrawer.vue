@@ -6,8 +6,6 @@
       hide-overlay
       :mobile-break-point="$vuetify.breakpoint.thresholds.sm"
       :value="this.$store.state.drawer">
-
-      <v-system-bar></v-system-bar>
     </v-navigation-drawer>
 </template>
 
