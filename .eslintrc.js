@@ -12,7 +12,9 @@ module.exports = {
     'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off'
   },
   globals: {
-    firebase: true
+    Vue: true,
+    firebase: true,
+    store: true
   },
   parserOptions: {
     parser: 'babel-eslint'

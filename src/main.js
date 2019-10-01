@@ -1,28 +1,30 @@
+import './assets/js/firebase'
+
 import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
 import store from './store'
 
-import './assets/js/firebase'
 import vuetify from './plugins/vuetify'
-
-window.Vue = Vue
-window.store = store
 
 Vue.config.productionTip = false
 
-new Vue({
+window.Vue = new Vue({
   router,
   store,
   vuetify,
-  render: h => h(App)
+  render: h => h(App),
+  created: () => {
+    firebase.auth().onAuthStateChanged(function (user) {
+      if (user) {
+        store.dispatch('login', true)
+      } else {
+        store.dispatch('login', false)
+      }
+
+      if (!store.state.loaded) {
+        store.dispatch('loaded', true)
+      }
+    })
+  }
 }).$mount('#app')
-
-// Set auth
-const user = firebase.auth().currentUser
-
-if (user) {
-  store.commit('login', true)
-} else {
-  store.commit('login', false)
-}

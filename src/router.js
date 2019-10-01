@@ -2,11 +2,11 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Home from './views/Home.vue'
 
-import auth from './middleware/auth'
+import { auth, noAuth } from './assets/js/middleware/auth'
 
 Vue.use(Router)
 
-export default new Router({
+const router = new Router({
   mode: 'history',
   base: process.env.BASE_URL,
   routes: [
@@ -27,8 +27,22 @@ export default new Router({
     {
       path: '/register',
       name: 'register',
-      component: () => import(/* webpackChunkName: "about" */ './views/Register.vue')
+      component: () => import(/* webpackChunkName: "about" */ './views/Register.vue'),
+      beforeEnter: noAuth
+    },
+    {
+      path: '/login',
+      name: 'login',
+      component: () => import(/* webpackChunkName: "about" */ './views/Login.vue'),
+      beforeEnter: noAuth
+    },
+    {
+      path: '/dashboard',
+      name: 'dashboard',
+      component: () => import(/* webpackChunkName: "dashboard" */ './views/auth/Dashboard.vue'),
+      beforeEnter: auth
     }
-    // authenticated routes
   ]
 })
+
+export default router

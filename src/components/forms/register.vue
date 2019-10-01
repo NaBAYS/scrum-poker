@@ -77,8 +77,10 @@ export default {
     loading: false
   }),
   methods: {
-    logError (error) {
-      console.error(error)
+    error (message) {
+      this.$store.dispatch('alertType', 'error')
+      this.$store.dispatch('alertMessage', message)
+      this.$store.dispatch('alert', true)
       this.loading = false
     },
     submit (e) {
@@ -96,14 +98,15 @@ export default {
             // add user cookie
             firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL)
               .then(() => firebase.auth().signInWithEmailAndPassword(this.email, this.password))
-              .catch((error) => this.logError(error))
+              .catch((error) => this.error(error.message))
 
-            this.$store.commit('login', true)
+            this.$store.dispatch('login', true)
             this.loading = false
-          }).catch((error) => this.logError(error))
+            this.$router.push('dashboard')
+          }).catch((error) => this.error(error.message))
         }
       // eslint-disable-next-line handle-callback-err
-      }).catch((error) => this.logError(error))
+      }).catch((error) => this.error(error.message))
     }
   }
 }
