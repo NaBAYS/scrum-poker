@@ -164,7 +164,6 @@ export default {
       e.preventDefault()
 
       this.loading = true
-
       this.$v.$touch()
 
       if (!this.$v.$invalid) {
